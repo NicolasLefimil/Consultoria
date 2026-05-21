@@ -410,6 +410,26 @@
     transition: background 0.2s;
   }
   .form-submit:hover { background: var(--slate); }
+  .form-submit:disabled { background: #2c6e49; cursor: default; }
+
+  /* Success message */
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    border-left: 3px solid var(--accent);
+  }
+  .form-success.visible { display: block; }
+  .form-success-title {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+  .form-success-sub { font-size: 0.9rem; color: var(--muted); }
 
   /* FOOTER */
   footer {
@@ -507,7 +527,6 @@
   <h2 class="section-title">Lo que ofrezco</h2>
   <p class="section-sub">Servicios diseñados para empresas con ventas de hasta UF 50.000 anuales que quieren tomar decisiones con información real.</p>
   <div class="services-grid">
-
     <div class="service-card featured">
       <div class="featured-tag">Más solicitado</div>
       <div class="service-num">01</div>
@@ -521,7 +540,6 @@
       </div>
       <div class="service-price">Desde $150.000 CLP — precio fijo</div>
     </div>
-
     <div class="service-card">
       <div class="service-num">02</div>
       <div class="service-title">KPIs y dashboard gerencial</div>
@@ -534,7 +552,6 @@
       </div>
       <div class="service-price">$300.000 – $600.000 CLP / mes</div>
     </div>
-
     <div class="service-card">
       <div class="service-num">03</div>
       <div class="service-title">Presupuesto y forecast</div>
@@ -547,7 +564,6 @@
       </div>
       <div class="service-price">$200.000 – $400.000 CLP / mes</div>
     </div>
-
   </div>
 </section>
 
@@ -660,39 +676,54 @@
     <div class="section-label">Contacto</div>
     <h2 class="section-title">Agenda tu diagnóstico</h2>
     <p class="section-sub">La primera conversación es sin costo. Cuéntame sobre tu empresa y te respondo en menos de 24 horas.</p>
-    <form class="contact-form" onsubmit="handleSubmit(event)">
+
+    <!-- Iframe oculto: evita redirección al enviar -->
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="formSubmitted()"></iframe>
+
+    <form
+      id="contact-form"
+      class="contact-form"
+      action="https://docs.google.com/forms/d/e/1FAIpQLSf-ekIg9CaQyezF0VNYQffp2LbmE5iUa91jBTIsO0rC6WS8fQ/formResponse"
+      method="POST"
+      target="hidden_iframe"
+    >
       <div class="form-row">
         <div class="form-group">
-          <label>Nombre</label>
-          <input type="text" placeholder="Tu nombre" required>
+          <label for="f-nombre">Nombre</label>
+          <input id="f-nombre" type="text" name="entry.1050317024" placeholder="Tu nombre" required>
         </div>
         <div class="form-group">
-          <label>Empresa</label>
-          <input type="text" placeholder="Nombre de tu empresa" required>
+          <label for="f-empresa">Empresa</label>
+          <input id="f-empresa" type="text" name="entry.1179022806" placeholder="Nombre de tu empresa" required>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label>Email</label>
-          <input type="email" placeholder="tucorreo@empresa.cl" required>
+          <label for="f-email">Email</label>
+          <input id="f-email" type="email" name="entry.989740795" placeholder="tucorreo@empresa.cl" required>
         </div>
         <div class="form-group">
-          <label>Ventas anuales aprox.</label>
-          <select>
+          <label for="f-ventas">Ventas anuales aprox.</label>
+          <select id="f-ventas" name="entry.268598720">
             <option value="">Selecciona un rango</option>
-            <option>Menos de $10.000.000</option>
-            <option>$10.000.000 – $50.000.000</option>
-            <option>$50.000.000 – $100.000.000</option>
-            <option>Más de $100.000.000</option>
+            <option value="Menos de $10.000.000">Menos de $10.000.000</option>
+            <option value="$10.000.000 - $50.000.000">$10.000.000 – $50.000.000</option>
+            <option value="$50.000.000 - $100.000.000">$50.000.000 – $100.000.000</option>
+            <option value="Más de $100.000.000">Más de $100.000.000</option>
           </select>
         </div>
       </div>
       <div class="form-group">
-        <label>¿Cuál es tu principal desafío financiero?</label>
-        <textarea placeholder="Ej: No sé si mi negocio es rentable, tengo problemas de flujo de caja, quiero entender mejor mis costos..."></textarea>
+        <label for="f-desafio">¿Cuál es tu principal desafío financiero?</label>
+        <textarea id="f-desafio" name="entry.150616045" placeholder="Ej: No sé si mi negocio es rentable, tengo problemas de flujo de caja, quiero entender mejor mis costos..."></textarea>
       </div>
-      <button type="submit" class="form-submit">Enviar mensaje →</button>
+      <button type="submit" class="form-submit" id="submit-btn">Enviar mensaje →</button>
     </form>
+
+    <div class="form-success" id="form-success">
+      <div class="form-success-title">¡Mensaje enviado!</div>
+      <div class="form-success-sub">Gracias por contactarme. Te responderé en menos de 24 horas.</div>
+    </div>
   </div>
 </section>
 
@@ -700,17 +731,24 @@
 <footer>
   <div class="footer-brand">Nicolás Lefimil</div>
   <div>Asesoría financiera para empresas · Santiago, Chile</div>
-  <div>© 2025</div>
+  <div>© 2026</div>
 </footer>
 
 <script>
-function handleSubmit(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('.form-submit');
-  btn.textContent = 'Mensaje enviado ✓';
-  btn.style.background = '#2c6e49';
-  btn.disabled = true;
-}
+  var formSent = false;
+
+  function formSubmitted() {
+    if (!formSent) return;
+    document.getElementById('contact-form').style.display = 'none';
+    document.getElementById('form-success').classList.add('visible');
+  }
+
+  document.getElementById('contact-form').addEventListener('submit', function() {
+    formSent = true;
+    var btn = document.getElementById('submit-btn');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+  });
 </script>
 </body>
 </html>
