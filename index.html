@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nicolás Lefimil — Asesoría Financiera para Empresas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:    #0f1b2d;
+    --navy2:   #1a2d47;
+    --slate:   #2c4a6e;
+    --mid:     #4a7fa5;
+    --accent:  #c8a96e;
+    --light:   #f5f2ec;
+    --white:   #ffffff;
+    --text:    #1a1a2e;
+    --muted:   #5a6a7a;
+    --border:  #ddd8cf;
+    --serif:   'DM Serif Display', Georgia, serif;
+    --sans:    'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--white);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--navy);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--navy); }
+  .nav-cta {
+    font-size: 0.83rem;
+    font-weight: 500;
+    color: var(--white) !important;
+    background: var(--navy);
+    padding: 0.5rem 1.2rem;
+    border-radius: 2px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--slate) !important; color: var(--white) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    background: var(--light);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 520px; height: 520px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    opacity: 0.5;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    opacity: 0.4;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.78rem; font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block; width: 28px; height: 1px;
+    background: var(--accent);
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
+    line-height: 1.15;
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--slate);
+  }
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 440px;
+    margin-bottom: 2.5rem;
+    line-height: 1.75;
+  }
+  .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 0.85rem 2rem;
+    border-radius: 2px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--slate); transform: translateY(-1px); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.88rem; font-weight: 400;
+    color: var(--navy);
+    text-decoration: none;
+    border-bottom: 1px solid var(--navy);
+    padding-bottom: 2px;
+    transition: color 0.2s;
+  }
+  .btn-secondary:hover { color: var(--slate); border-color: var(--slate); }
+
+  .hero-right {
+    display: flex; justify-content: flex-end; align-items: center;
+    padding-left: 4rem;
+    position: relative; z-index: 1;
+  }
+  .hero-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+    width: 320px;
+    box-shadow: 0 2px 40px rgba(15,27,45,0.07);
+  }
+  .hero-card-label {
+    font-size: 0.72rem; font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .hero-card-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .stat-row { display: flex; flex-direction: column; gap: 1rem; }
+  .stat-item { border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+  .stat-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2rem;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+  .stat-desc { font-size: 0.8rem; color: var(--muted); }
+
+  /* SECTION BASE */
+  section { padding: 6rem 4rem; }
+  .section-label {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.75rem; font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .section-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    font-size: 0.95rem;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.75;
+  }
+
+  /* ABOUT */
+  .about { background: var(--white); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+  .about-text p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+  .about-text p strong { color: var(--navy); font-weight: 500; }
+  .creds { display: flex; flex-direction: column; gap: 1rem; }
+  .cred-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--light);
+  }
+  .cred-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+  .cred-title { font-size: 0.88rem; font-weight: 500; color: var(--navy); margin-bottom: 0.2rem; }
+  .cred-desc { font-size: 0.8rem; color: var(--muted); }
+
+  /* SERVICES */
+  .services { background: var(--light); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .service-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+    position: relative;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .service-card:hover {
+    box-shadow: 0 4px 30px rgba(15,27,45,0.09);
+    transform: translateY(-2px);
+  }
+  .service-card.featured {
+    border-color: var(--navy);
+    border-width: 2px;
+  }
+  .featured-tag {
+    position: absolute; top: -12px; left: 1.5rem;
+    background: var(--navy);
+    color: var(--white);
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 2px;
+  }
+  .service-num {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .service-title {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+  .service-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.2rem; }
+  .service-price {
+    font-size: 0.82rem; font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    margin-top: auto;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.2rem; }
+  .tag {
+    font-size: 0.72rem; color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 2px 8px;
+    background: var(--light);
+  }
+
+  /* PROCESS */
+  .process { background: var(--navy); color: var(--white); }
+  .process .section-title { color: var(--white); }
+  .process .section-sub { color: rgba(255,255,255,0.55); }
+  .process .section-label { color: var(--accent); }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 3rem;
+    position: relative;
+  }
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 20px; left: 10%; right: 10%;
+    height: 1px;
+    background: rgba(255,255,255,0.12);
+  }
+  .step { padding: 0 1.5rem; }
+  .step-num {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--navy2);
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    position: relative; z-index: 1;
+  }
+  .step-title { font-size: 0.95rem; font-weight: 500; color: var(--white); margin-bottom: 0.5rem; }
+  .step-desc { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+  /* SEGMENT */
+  .segment { background: var(--white); }
+  .segment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 3rem;
+    align-items: center;
+  }
+  .segment-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .seg-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 1rem 1.2rem;
+    border-left: 2px solid var(--accent);
+    background: var(--light);
+    border-radius: 0 4px 4px 0;
+  }
+  .seg-item-title { font-size: 0.9rem; font-weight: 500; color: var(--navy); }
+  .seg-item-desc { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+
+  /* CONTACT */
+  .contact { background: var(--light); }
+  .contact-inner {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .contact-inner .section-label { justify-content: center; }
+  .contact-inner .section-label::before { display: none; }
+  .contact-inner .section-title { margin-bottom: 0.75rem; }
+  .contact-inner .section-sub { margin: 0 auto 2.5rem; }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; text-align: left; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 0.78rem; font-weight: 500; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    color: var(--text);
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 0.7rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--navy); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-submit {
+    width: 100%;
+    background: var(--navy);
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.9rem;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: background 0.2s;
+  }
+  .form-submit:hover { background: var(--slate); }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.45);
+    padding: 2rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8rem;
+  }
+  footer .footer-brand {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow { animation: fadeUp 0.6s ease both; }
+  .hero-title   { animation: fadeUp 0.6s 0.1s ease both; }
+  .hero-sub     { animation: fadeUp 0.6s 0.2s ease both; }
+  .hero-actions { animation: fadeUp 0.6s 0.3s ease both; }
+  .hero-card    { animation: fadeUp 0.7s 0.35s ease both; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; min-height: auto; }
+    .hero-right { justify-content: flex-start; padding-left: 0; margin-top: 2rem; }
+    .hero-card { width: 100%; }
+    .about-grid,
+    .segment-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .steps::before { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Nicolás Lefimil</a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#sobre-mi">Sobre mí</a></li>
+    <li><a href="#contacto" class="nav-cta">Agendar diagnóstico</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Asesoría financiera para empresas</div>
+    <h1 class="hero-title">Claridad financiera<br>para <em>tomar mejores</em><br>decisiones</h1>
+    <p class="hero-sub">Ayudo a pequeñas y medianas empresas a entender sus números, controlar sus finanzas y crecer con información real — no con intuición.</p>
+    <div class="hero-actions">
+      <a href="#contacto" class="btn-primary">Agendar diagnóstico gratuito</a>
+      <a href="#servicios" class="btn-secondary">Ver servicios →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="hero-card-label">Lo que resolvemos</div>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-num">73%</div>
+          <div class="stat-desc">de las PYMES no tiene visibilidad real de su flujo de caja mensual</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">+40%</div>
+          <div class="stat-desc">de las empresas que trabajan con KPIs mejoran su margen en el primer año</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">2–4 sem</div>
+          <div class="stat-desc">para tener un diagnóstico completo de tu situación financiera actual</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="servicios">
+  <div class="section-label">Servicios</div>
+  <h2 class="section-title">Lo que ofrezco</h2>
+  <p class="section-sub">Servicios diseñados para empresas con ventas de hasta UF 50.000 anuales que quieren tomar decisiones con información real.</p>
+  <div class="services-grid">
+
+    <div class="service-card featured">
+      <div class="featured-tag">Más solicitado</div>
+      <div class="service-num">01</div>
+      <div class="service-title">Diagnóstico financiero inicial</div>
+      <p class="service-desc">Evaluación completa de la situación financiera de tu empresa. Identifico los tres problemas más críticos y entrego un plan de acción concreto con pasos claros.</p>
+      <div class="tags">
+        <span class="tag">Semáforo financiero</span>
+        <span class="tag">Análisis de márgenes</span>
+        <span class="tag">Plan de acción</span>
+        <span class="tag">Informe + sesión 60 min</span>
+      </div>
+      <div class="service-price">Desde $150.000 CLP — precio fijo</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-title">KPIs y dashboard gerencial</div>
+      <p class="service-desc">Diseño e implementación de un tablero de control en Power BI con los indicadores clave de tu negocio. Informe mensual comentado incluido.</p>
+      <div class="tags">
+        <span class="tag">Dashboard Power BI</span>
+        <span class="tag">KPIs del negocio</span>
+        <span class="tag">Informe mensual</span>
+        <span class="tag">Reunión de revisión</span>
+      </div>
+      <div class="service-price">$300.000 – $600.000 CLP / mes</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-title">Presupuesto y forecast</div>
+      <p class="service-desc">Construcción del presupuesto anual y seguimiento mensual de desviaciones. Forecast rolling a 3 meses para anticipar escenarios antes de que ocurran.</p>
+      <div class="tags">
+        <span class="tag">Presupuesto anual</span>
+        <span class="tag">Real vs. presupuesto</span>
+        <span class="tag">Forecast 3 meses</span>
+        <span class="tag">Informe ejecutivo</span>
+      </div>
+      <div class="service-price">$200.000 – $400.000 CLP / mes</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="proceso">
+  <div class="section-label">Cómo trabajo</div>
+  <h2 class="section-title">Un proceso simple y directo</h2>
+  <p class="section-sub">Sin burocracia. Desde la primera conversación hasta los primeros resultados en menos de un mes.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Reunión inicial</div>
+      <div class="step-desc">Conversamos 30 minutos sobre tu negocio, tus dolores financieros y lo que quieres lograr. Sin costo.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Recolección de datos</div>
+      <div class="step-desc">Me envías información básica: cartolas, deudas y estructura de costos. Solo lo necesario.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Análisis y diagnóstico</div>
+      <div class="step-desc">En 1 a 2 semanas preparo tu diagnóstico: semáforo financiero, problemas clave y oportunidades.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-title">Presentación y plan</div>
+      <div class="step-desc">Sesión de 60 minutos donde reviso los resultados contigo y definimos los próximos pasos.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="sobre-mi">
+  <div class="section-label">Sobre mí</div>
+  <h2 class="section-title">Nicolás Lefimil</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Soy Ingeniero en Control de Gestión con experiencia en <strong>análisis financiero corporativo, modelamiento y reportería gerencial</strong>. He trabajado en empresas de primer nivel y en consultoría internacional, lo que me permite traer metodología de alto estándar a empresas que normalmente no tienen acceso a ese nivel de análisis.</p>
+      <p>Entiendo la realidad del empresario PYME: tiempo limitado, múltiples frentes abiertos y pocas herramientas para entender realmente si el negocio está yendo bien o mal. Mi objetivo es darte claridad financiera real, sin tecnicismos innecesarios.</p>
+      <p>También he trabajado directamente con <strong>microempresarios y emprendedores</strong>, por lo que adapto el lenguaje y los entregables según el nivel de cada empresa.</p>
+    </div>
+    <div class="creds">
+      <div class="cred-item">
+        <div class="cred-dot"></div>
+        <div>
+          <div class="cred-title">EY — Modelamiento financiero</div>
+          <div class="cred-desc">Análisis de estados financieros, valorización de empresas y auditoría de modelos financieros corporativos.</div>
+        </div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-dot"></div>
+        <div>
+          <div class="cred-title">Control de gestión corporativo</div>
+          <div class="cred-desc">KPIs, dashboards en Power BI, forecasting y análisis comparativo presupuesto vs. real en empresas del sector industrial.</div>
+        </div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-dot"></div>
+        <div>
+          <div class="cred-title">Asesorías a microempresarios</div>
+          <div class="cred-desc">Acompañamiento financiero a emprendedores y pequeños negocios en etapa de formalización y crecimiento.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEGMENT -->
+<section class="segment" style="background: var(--light);">
+  <div class="section-label">¿Para quién es esto?</div>
+  <h2 class="section-title">Trabajo con empresas como la tuya</h2>
+  <div class="segment-grid">
+    <div>
+      <p class="section-sub" style="margin-bottom:2rem">Me especializo en empresas chilenas formalizadas que ya operan pero que no tienen claridad financiera. Si te identificas con alguna de estas situaciones, podemos trabajar juntos.</p>
+      <a href="#contacto" class="btn-primary">Agendar una llamada →</a>
+    </div>
+    <div class="segment-list">
+      <div class="seg-item">
+        <div>
+          <div class="seg-item-title">PYME en crecimiento</div>
+          <div class="seg-item-desc">Ventas entre UF 1.000 y UF 50.000 anuales, con contador pero sin análisis de gestión.</div>
+        </div>
+      </div>
+      <div class="seg-item">
+        <div>
+          <div class="seg-item-title">Empresa familiar o unipersonal</div>
+          <div class="seg-item-desc">Dueño que opera sin tiempo para analizar sus propios números en detalle.</div>
+        </div>
+      </div>
+      <div class="seg-item">
+        <div>
+          <div class="seg-item-title">Negocio que quiere acceder a crédito</div>
+          <div class="seg-item-desc">Empresas que necesitan ordenar su información financiera antes de ir al banco.</div>
+        </div>
+      </div>
+      <div class="seg-item">
+        <div>
+          <div class="seg-item-title">Emprendimiento en formalización</div>
+          <div class="seg-item-desc">Negocios pequeños que quieren estructurar su gestión financiera desde el inicio.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contacto">
+  <div class="contact-inner">
+    <div class="section-label">Contacto</div>
+    <h2 class="section-title">Agenda tu diagnóstico</h2>
+    <p class="section-sub">La primera conversación es sin costo. Cuéntame sobre tu empresa y te respondo en menos de 24 horas.</p>
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" placeholder="Tu nombre" required>
+        </div>
+        <div class="form-group">
+          <label>Empresa</label>
+          <input type="text" placeholder="Nombre de tu empresa" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="tucorreo@empresa.cl" required>
+        </div>
+        <div class="form-group">
+          <label>Ventas anuales aprox.</label>
+          <select>
+            <option value="">Selecciona un rango</option>
+            <option>Menos de UF 1.000</option>
+            <option>UF 1.000 – UF 5.000</option>
+            <option>UF 5.000 – UF 20.000</option>
+            <option>Más de UF 20.000</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>¿Cuál es tu principal desafío financiero?</label>
+        <textarea placeholder="Ej: No sé si mi negocio es rentable, tengo problemas de flujo de caja, quiero entender mejor mis costos..."></textarea>
+      </div>
+      <button type="submit" class="form-submit">Enviar mensaje →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Nicolás Lefimil</div>
+  <div>Asesoría financiera para empresas · Santiago, Chile</div>
+  <div>© 2025</div>
+</footer>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.textContent = 'Mensaje enviado ✓';
+  btn.style.background = '#2c6e49';
+  btn.disabled = true;
+}
+</script>
+</body>
+</html>
